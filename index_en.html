@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Random Nutrition Support</title>
   <style>
-    /* Menu de sélection de langue */
+    /* Language selection menu */
     .language-menu {
       position: absolute;
       top: 1rem;
@@ -21,7 +21,7 @@
     .language-menu a:hover {
       color: #94d2bd;
     }
-    /* Polices et réinitialisation */
+    /* Reset & fonts */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -34,7 +34,7 @@
       line-height: 1.6;
       overflow-x: hidden;
     }
-    /* Animations de base */
+    /* Basic animations */
     .fade-in {
       opacity: 0;
       animation: fadeIn 1.5s forwards;
@@ -42,12 +42,13 @@
     @keyframes fadeIn {
       to { opacity: 1; }
     }
-    /* En-tête */
+    /* Header */
     header {
       background: linear-gradient(135deg, #005f73, #0a9396);
       color: #fff;
       padding: 2rem 1rem;
       text-align: center;
+      position: relative;
     }
     header h1 {
       margin-bottom: 0.5rem;
@@ -125,7 +126,7 @@
       list-style: disc inside;
       margin-left: 1rem;
     }
-    /* Lien mailto */
+    /* Mailto link */
     a.mail-link {
       color: #0a9396;
       text-decoration: none;
@@ -135,7 +136,7 @@
     a.mail-link:hover {
       color: #005f73;
     }
-    /* Pied de page */
+    /* Footer */
     footer {
       background: #005f73;
       color: #fff;
@@ -151,109 +152,81 @@
 <body>
   <header class="fade-in">
     <div class="language-menu">
-      <a href="/fr">FR</a> | <a href="/en">EN</a>
+      <a href="/index.html">FR</a> | <a href="/index_en.html">EN</a>
     </div>
-    <h1>Assistance & Documentation</h1>
+    <h1>Support & Documentation</h1>
     <p>Random Nutrition</p>
   </header>
 
   <nav class="fade-in">
-    <a href="#presentation">Presentation</a>
-    <a href="#fonctionnalites">Fonctionnalities</a>
-    <a href="#pages">Application pages</a>
+    <a href="#overview">Overview</a>
+    <a href="#features">Features</a>
+    <a href="#app-pages">App Pages</a>
     <a href="#contact">Contact & Support</a>
   </nav>
 
-  <section id="presentation" class="fade-in">
-    <h2>Presentation of Random Nutrition</h2>
+  <section id="overview" class="fade-in">
+    <h2>Overview of Random Nutrition</h2>
     <p>
-      Random Nutrition est une application mobile qui génère des repas équilibrés de manière aléatoire tout en respectant des contraintes nutritionnelles prédéfinies. 
-      L'application produit des entrées, des plats, des fromages et des desserts en tenant compte des besoins en énergie, protéines, lipides, glucides et autres macronutriments.
+      Random Nutrition is a mobile application that generates balanced meals randomly while meeting predefined nutritional constraints.
+      The app produces appetizers, main courses, cheeses, and desserts, taking into account energy, protein, fat, carbohydrate, and other macronutrient needs.
     </p>
     <p>
-      Elle offre également la possibilité d'ajouter ou d'exclure certains types d'aliments pour personnaliser les repas selon vos préférences et besoins.
-    </p>
-  </section>
-
-  <section id="fonctionnalites" class="fade-in">
-    <h2>Fonctionnalités principales</h2>
-    <ul>
-      <li>Génération de repas aléatoires respectant des limites nutritionnelles pour chaque type de mets (entrée, plat, fromage, dessert).</li>
-      <li>Personnalisation des limites nutritionnelles (énergie, proportions de macronutriments).</li>
-      <li>Gestion des quantités des aliments avec des fourchettes prédéfinies.</li>
-      <li>Vérification automatique des contraintes nutritionnelles pour chaque repas généré.</li>
-      <li>Respect des règles diététiques : chaque repas est équilibré et répond aux besoins journaliers en énergie, protéines, lipides et glucides.</li>
-    </ul>
-  </section>
-
-  <section id="pages" class="fade-in">
-    <h2>Pages de l'application</h2>
-
-    <h3>Page d'accueil</h3>
-    <p>
-      L'utilisateur peut visualiser ses statistiques d'utilisation et découvrir quelques aliments au hasard.
-    </p>
-
-    <h3>Page Aliments</h3>
-    <p>
-      Cette page affiche deux listes :
-    </p>
-    <ul>
-      <li>La liste des aliments par défaut.</li>
-      <li>La liste des aliments personnalisables que l'utilisateur peut ajouter.</li>
-    </ul>
-    <p>
-      En cliquant sur le bouton <strong>+</strong>, l'utilisateur est redirigé vers une page de création d'aliment personnalisé comprenant le nom, les catégories, les valeurs nutritionnelles, une description, etc.
-      Chaque aliment de la liste est cliquable pour afficher un popup détaillant toutes ses informations.
-    </p>
-
-    <h3>Page Générer des repas</h3>
-    <p>
-      Sur cette page, l'utilisateur peut :
-    </p>
-    <ul>
-      <li>Saisir les valeurs nutritionnelles souhaitées.</li>
-      <li>Choisir le nombre de repas à générer.</li>
-      <li>Paramétrer individuellement chaque repas en sélectionnant les mets et les catégories ou aliments désirés.</li>
-      <li>Générer les repas en cliquant sur le bouton "Générer" après configuration.</li>
-    </ul>
-    <p>
-      Un écran de chargement s'affiche avec un conseil, et une fois terminé, les repas générés s'affichent en détails avec la possibilité de les enregistrer individuellement ou en ensemble.
-    </p>
-
-    <h3>Page Repas & Ensembles de repas</h3>
-    <p>
-      Cette page présente deux listes :
-    </p>
-    <ul>
-      <li>Les repas enregistrés.</li>
-      <li>Les ensembles de repas enregistrés.</li>
-    </ul>
-    <p>
-      Chaque élément est cliquable pour ouvrir un popup avec les détails du repas ou de l'ensemble. Seuls le nom et la couleur sont modifiables.
-    </p>
-
-    <h3>Page Options</h3>
-    <p>
-      L'utilisateur peut configurer diverses options de l'application pour personnaliser son expérience.
+      It also offers the option to add or remove certain types of foods to personalize meals according to your preferences and requirements.
     </p>
   </section>
 
-  <section id="contact" class="fade-in">
-    <h2>Contact & Support</h2>
-    <p>
-      Pour toute question, suggestion ou problème, veuillez contacter notre équipe de support à l'adresse suivante :
-    </p>
-    <p>
-      <strong>Email :</strong> <a class="mail-link" href="mailto:support@randomnutrition.fr">support@randomnutrition.fr</a>
-    </p>
-    <p>
-      Vous pouvez également consulter cette page régulièrement pour des mises à jour, FAQ et conseils d'utilisation.
-    </p>
+  <section id="features" class="fade-in">
+    <h2>Key Features</h2>
+    <ul>
+      <li>Random meal generation that adheres to nutritional limits for each course (appetizer, main course, cheese, dessert).</li>
+      <li>Customization of nutritional limits (energy, macronutrient ratios).</li>
+      <li>Management of food quantities within predefined ranges.</li>
+      <li>Automatic verification of nutritional constraints for each generated meal.</li>
+      <li>Compliance with dietary guidelines: every meal is balanced and meets daily energy, protein, fat, and carbohydrate requirements.</li>
+    </ul>
   </section>
 
-  <footer class="fade-in">
-    <p>&copy; 2025 Random Nutrition - Tous droits réservés</p>
-  </footer>
-</body>
-</html>
+  <section id="app-pages" class="fade-in">
+    <h2>App Pages</h2>
+
+    <h3>Home Page</h3>
+    <p>
+      Users can view their usage statistics and discover some random foods.
+    </p>
+
+    <h3>Food Page</h3>
+    <p>
+      This page displays two lists:
+    </p>
+    <ul>
+      <li>The default food list.</li>
+      <li>The customizable food list that users can add to.</li>
+    </ul>
+    <p>
+      By clicking the <strong>+</strong> button, users are redirected to a page for creating a custom food item that includes a name, categories, nutritional values, a description, etc.
+      Each food item in the list is clickable to display a popup with detailed information.
+    </p>
+
+    <h3>Generate Meals Page</h3>
+    <p>
+      On this page, users can:
+    </p>
+    <ul>
+      <li>Enter the desired nutritional values.</li>
+      <li>Select the number of meals to generate.</li>
+      <li>Individually configure each meal by selecting desired courses and categories or foods.</li>
+      <li>Generate the meals by clicking the "Generate" button after configuration.</li>
+    </ul>
+    <p>
+      A loading screen appears with a tip, and once finished, the generated meals are displayed in detail with the option to save them individually or as a set.
+    </p>
+
+    <h3>Meals & Meal Sets Page</h3>
+    <p>
+      This page presents two lists:
+    </p>
+    <ul>
+      <li>Saved meals.</li>
+      <li>Saved meal sets.</li>
+    </ul>

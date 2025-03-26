@@ -5,6 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Assistance Random Nutrition</title>
   <style>
+    /* Menu de sélection de langue */
+    .language-menu {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+    }
+    .language-menu a {
+      color: #fff;
+      margin-left: 1rem;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    .language-menu a:hover {
+      color: #94d2bd;
+    }
     /* Polices et réinitialisation */
     * {
       box-sizing: border-box;
@@ -134,6 +150,9 @@
 </head>
 <body>
   <header class="fade-in">
+    <div class="language-menu">
+      <a href="/fr">FR</a> | <a href="/en">EN</a>
+    </div>
     <h1>Assistance & Documentation</h1>
     <p>Random Nutrition</p>
   </header>

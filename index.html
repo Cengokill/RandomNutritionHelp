@@ -5,69 +5,147 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Assistance Random Nutrition</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
+    /* Polices et réinitialisation */
+    * {
+      box-sizing: border-box;
       margin: 0;
-      padding: 0 1rem;
-      line-height: 1.6;
-      background-color: #f9f9f9;
-      color: #333;
+      padding: 0;
     }
-    header, footer {
-      background-color: #005f73;
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    /* Animations de base */
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 1.5s forwards;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+    /* En-tête */
+    header {
+      background: linear-gradient(135deg, #005f73, #0a9396);
       color: #fff;
-      padding: 1rem;
+      padding: 2rem 1rem;
       text-align: center;
     }
-    header h1, footer p {
-      margin: 0;
+    header h1 {
+      margin-bottom: 0.5rem;
+      font-size: 2.5rem;
+      animation: slideDown 1s ease-out forwards;
     }
+    @keyframes slideDown {
+      from { transform: translateY(-20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    header p {
+      font-size: 1.2rem;
+      margin-top: 0.5rem;
+    }
+    /* Navigation */
     nav {
       background-color: #0a9396;
-      padding: 0.5rem;
-      margin-bottom: 1rem;
+      text-align: center;
+      padding: 0.75rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     nav a {
       color: #fff;
-      margin: 0 0.5rem;
+      margin: 0 1rem;
       text-decoration: none;
+      font-weight: bold;
+      position: relative;
+      transition: color 0.3s;
     }
+    nav a:hover {
+      color: #94d2bd;
+    }
+    nav a::after {
+      content: "";
+      display: block;
+      width: 0;
+      height: 2px;
+      background: #94d2bd;
+      transition: width 0.3s;
+      position: absolute;
+      left: 50%;
+      bottom: -4px;
+      transform: translateX(-50%);
+    }
+    nav a:hover::after {
+      width: 100%;
+    }
+    /* Sections */
     section {
-      background-color: #fff;
-      margin-bottom: 1rem;
-      padding: 1rem;
-      border-radius: 5px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      background: #fff;
+      margin: 2rem auto;
+      max-width: 900px;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      animation: fadeIn 1.5s ease-out forwards;
     }
-    h2 {
+    section h2 {
       color: #005f73;
+      margin-bottom: 1rem;
+      font-size: 2rem;
+      border-bottom: 2px solid #0a9396;
+      padding-bottom: 0.5rem;
+    }
+    section h3 {
+      color: #0a9396;
+      margin: 1rem 0 0.5rem;
+      font-size: 1.5rem;
+    }
+    section p, section ul {
+      margin-bottom: 1rem;
+      font-size: 1rem;
     }
     ul {
-      list-style-type: disc;
-      margin-left: 2rem;
+      list-style: disc inside;
+      margin-left: 1rem;
     }
-    pre {
-      background-color: #e9ecef;
+    /* Lien mailto */
+    a.mail-link {
+      color: #0a9396;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    a.mail-link:hover {
+      color: #005f73;
+    }
+    /* Pied de page */
+    footer {
+      background: #005f73;
+      color: #fff;
+      text-align: center;
       padding: 1rem;
-      border-radius: 5px;
-      overflow-x: auto;
+      margin-top: 2rem;
+    }
+    footer p {
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Aide & Documentation</h1>
+  <header class="fade-in">
+    <h1>Assistance & Documentation</h1>
     <p>Random Nutrition</p>
   </header>
 
-  <nav>
+  <nav class="fade-in">
     <a href="#presentation">Présentation</a>
     <a href="#fonctionnalites">Fonctionnalités</a>
     <a href="#pages">Pages de l'application</a>
     <a href="#contact">Contact & Support</a>
   </nav>
 
-  <section id="presentation">
+  <section id="presentation" class="fade-in">
     <h2>Présentation de Random Nutrition</h2>
     <p>
       Random Nutrition est une application mobile qui génère des repas équilibrés de manière aléatoire tout en respectant des contraintes nutritionnelles prédéfinies. 
@@ -78,7 +156,7 @@
     </p>
   </section>
 
-  <section id="fonctionnalites">
+  <section id="fonctionnalites" class="fade-in">
     <h2>Fonctionnalités principales</h2>
     <ul>
       <li>Génération de repas aléatoires respectant des limites nutritionnelles pour chaque type de mets (entrée, plat, fromage, dessert).</li>
@@ -89,7 +167,7 @@
     </ul>
   </section>
 
-  <section id="pages">
+  <section id="pages" class="fade-in">
     <h2>Pages de l'application</h2>
 
     <h3>Page d'accueil</h3>
@@ -142,20 +220,20 @@
     </p>
   </section>
 
-  <section id="contact">
+  <section id="contact" class="fade-in">
     <h2>Contact & Support</h2>
     <p>
       Pour toute question, suggestion ou problème, veuillez contacter notre équipe de support à l'adresse suivante :
     </p>
     <p>
-      <strong>Email :</strong> support@randomnutrition.fr
+      <strong>Email :</strong> <a class="mail-link" href="mailto:support@randomnutrition.fr">support@randomnutrition.fr</a>
     </p>
     <p>
       Vous pouvez également consulter cette page régulièrement pour des mises à jour, FAQ et conseils d'utilisation.
     </p>
   </section>
 
-  <footer>
+  <footer class="fade-in">
     <p>&copy; 2025 Random Nutrition - Tous droits réservés</p>
   </footer>
 </body>

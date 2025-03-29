@@ -119,6 +119,12 @@
     .language-menu a:hover {
       color: var(--color-accent);
     }
+    .flag-icon {
+      width: 20px;
+      height: auto;
+      margin-left: 5px;
+      vertical-align: middle;
+    }
     /* Navigation */
     nav {
       background-color: var(--color-secondary);
@@ -210,8 +216,10 @@
     <div class="slider-container">
       <!-- Menu de sélection de langue -->
       <div class="language-menu">
-        <a href="/fr">FR</a>  | <a href="/index_en.html">EN</a>
+        <a href="/fr">FR <img src="images/france-flag.png" alt="Français" class="flag-icon"></a> |
+        <a href="/index_en.html">EN <img src="images/usa-flag.png" alt="English" class="flag-icon"></a>
       </div>
+
       <!-- Slider d'images -->
       <div id="slider">
         <img src="images/image1.jpg" alt="Application mobile 1">

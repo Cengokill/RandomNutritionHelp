@@ -14,23 +14,6 @@
       --color-secondary: #00695c;  /* Variante complémentaire pour barres et survols */
       --color-accent: #80cbc4;     /* Couleur d’accentuation (survol, détails) */
     }
-
-    /* Menu de sélection de langue */
-    .language-menu {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-    }
-    .language-menu a {
-      color: var(--color-white);
-      margin-left: 1rem;
-      text-decoration: none;
-      font-weight: bold;
-      transition: color 0.3s;
-    }
-    .language-menu a:hover {
-      color: var(--color-accent);
-    }
     /* Polices et réinitialisation */
     * {
       box-sizing: border-box;
@@ -52,59 +35,85 @@
     @keyframes fadeIn {
       to { opacity: 1; }
     }
-    /* Slider d'images */
-    #slider {
+    /* Slider complet en haut de la page */
+    .slider-container {
       position: relative;
       width: 100%;
-      max-width: 400px;
-      height: 250px;
-      margin: 0 auto 1rem;
+      height: 400px; /* Ajustez la hauteur souhaitée */
       overflow: hidden;
     }
+    #slider {
+      display: flex;
+      width: 500%; /* 5 images => 5 x 100% */
+      height: 100%;
+      transition: transform 0.5s ease;
+    }
     #slider img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    /* Cercles de navigation */
+    .dots {
       position: absolute;
-      top: 0;
+      bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
-      width: 100%;
-      max-width: 400px;
-      opacity: 0;
-      animation: fade 25s infinite;
+      display: flex;
+      z-index: 2;
     }
-    /* Animation pour chaque image : chaque image est visible 5s sur 25s */
-    @keyframes fade {
-      0% { opacity: 0; }
-      10% { opacity: 1; }
-      30% { opacity: 1; }
-      40% { opacity: 0; }
-      100% { opacity: 0; }
+    .dot {
+      height: 12px;
+      width: 12px;
+      margin: 0 5px;
+      background-color: rgba(255,255,255,0.7);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s;
     }
-    /* Affecter un délai à chaque image pour les décaler */
-    #slider img:nth-child(1) { animation-delay: 0s; }
-    #slider img:nth-child(2) { animation-delay: 5s; }
-    #slider img:nth-child(3) { animation-delay: 10s; }
-    #slider img:nth-child(4) { animation-delay: 15s; }
-    #slider img:nth-child(5) { animation-delay: 20s; }
-
-    /* En-tête */
-    header {
-      background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-      color: var(--color-white);
-      padding: 2rem 1rem;
+    .dot.active {
+      background-color: var(--color-accent);
+    }
+    /* Texte en superposition */
+    .header-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       text-align: center;
+      color: var(--color-white);
+      z-index: 2;
     }
-    header h1 {
-      margin-bottom: 0.5rem;
+    .header-text h1 {
       font-size: 2.5rem;
+      margin-bottom: 0.5rem;
       animation: slideDown 1s ease-out forwards;
     }
     @keyframes slideDown {
       from { transform: translateY(-20px); opacity: 0; }
       to { transform: translateY(0); opacity: 1; }
     }
-    header p {
+    .header-text p {
       font-size: 1.2rem;
       margin-top: 0.5rem;
+    }
+    /* Menu de sélection de langue */
+    .language-menu {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      z-index: 2;
+    }
+    .language-menu a {
+      color: var(--color-white);
+      margin-left: 1rem;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    .language-menu a:hover {
+      color: var(--color-accent);
     }
     /* Navigation */
     nav {
@@ -194,19 +203,32 @@
 </head>
 <body>
   <header class="fade-in">
-    <div class="language-menu">
-      <a href="/fr">FR</a> | <a href="/index_en.html">EN</a>
+    <div class="slider-container">
+      <!-- Slider d'images -->
+      <div id="slider">
+        <img src="images/image1.jpg" alt="Application mobile 1">
+        <img src="images/image2.jpg" alt="Application mobile 2">
+        <img src="images/image3.jpg" alt="Application mobile 3">
+        <img src="images/image4.jpg" alt="Application mobile 4">
+        <img src="images/image5.jpg" alt="Application mobile 5">
+      </div>
+      <!-- Cercles de navigation -->
+      <div class="dots">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+        <span class="dot" onclick="currentSlide(4)"></span>
+        <span class="dot" onclick="currentSlide(5)"></span>
+      </div>
+      <!-- Texte en superposition -->
+      <div class="header-text">
+        <div class="language-menu">
+          <a href="/fr">FR</a> | <a href="/index_en.html">EN</a>
+        </div>
+        <h1>Assistance & Documentation</h1>
+        <p>Random Nutrition</p>
+      </div>
     </div>
-    <!-- Slider d'images pour l'application mobile -->
-    <div id="slider">
-      <img src="images/image1.jpg" alt="Application mobile 1">
-      <img src="images/image2.jpg" alt="Application mobile 2">
-      <img src="images/image3.jpg" alt="Application mobile 3">
-      <img src="images/image4.jpg" alt="Application mobile 4">
-      <img src="images/image5.jpg" alt="Application mobile 5">
-    </div>
-    <h1>Assistance & Documentation</h1>
-    <p>Random Nutrition</p>
   </header>
 
   <nav class="fade-in">
@@ -307,5 +329,47 @@
   <footer class="fade-in">
     <p>&copy; 2025 Random Nutrition - Tous droits réservés</p>
   </footer>
+
+  <!-- Script pour le carrousel -->
+  <script>
+    let slideIndex = 0;
+    const slider = document.getElementById("slider");
+    const slides = document.querySelectorAll("#slider img");
+    const dots = document.querySelectorAll(".dot");
+
+    function showSlide(index) {
+      if (index >= slides.length) {
+        slideIndex = 0;
+      } else if (index < 0) {
+        slideIndex = slides.length - 1;
+      } else {
+        slideIndex = index;
+      }
+      slider.style.transform = "translateX(" + (-slideIndex * 100) + "%)";
+      updateDots();
+    }
+
+    function updateDots() {
+      dots.forEach((dot, i) => {
+        dot.classList.toggle("active", i === slideIndex);
+      });
+    }
+
+    function nextSlide() {
+      showSlide(slideIndex + 1);
+    }
+
+    let slideInterval = setInterval(nextSlide, 5000); // Changement automatique toutes les 5 secondes
+
+    function currentSlide(n) {
+      clearInterval(slideInterval);
+      showSlide(n - 1);
+      slideInterval = setInterval(nextSlide, 5000);
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      showSlide(slideIndex);
+    });
+  </script>
 </body>
 </html>

@@ -5,23 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Random Nutrition Support</title>
   <style>
-    /* Language selection menu */
-    .language-menu {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
+    :root {
+      --color-bg: #f9f9f9;
+      --color-text: #333;
+      --color-white: #fff;
+      --color-primary: #004d40;
+      --color-secondary: #00695c;
+      --color-accent: #80cbc4;
     }
-    .language-menu a {
-      color: #fff;
-      margin-left: 1rem;
-      text-decoration: none;
-      font-weight: bold;
-      transition: color 0.3s;
-    }
-    .language-menu a:hover {
-      color: #94d2bd;
-    }
-    /* Reset & fonts */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -29,12 +20,11 @@
     }
     body {
       font-family: 'Helvetica Neue', Arial, sans-serif;
-      background: #f9f9f9;
-      color: #333;
+      background: var(--color-bg);
+      color: var(--color-text);
       line-height: 1.6;
       overflow-x: hidden;
     }
-    /* Basic animations */
     .fade-in {
       opacity: 0;
       animation: fadeIn 1.5s forwards;
@@ -42,36 +32,100 @@
     @keyframes fadeIn {
       to { opacity: 1; }
     }
-    /* Header */
-    header {
-      background: linear-gradient(135deg, #005f73, #0a9396);
-      color: #fff;
-      padding: 2rem 1rem;
-      text-align: center;
+    .slider-container {
       position: relative;
+      width: 100%;
+      height: 400px;
+      overflow: hidden;
     }
-    header h1 {
-      margin-bottom: 0.5rem;
+    #slider {
+      display: flex;
+      width: 500%;
+      height: 100%;
+      transition: transform 0.5s ease;
+    }
+    #slider img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .dots {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      z-index: 2;
+    }
+    .dot {
+      height: 12px;
+      width: 12px;
+      margin: 0 5px;
+      background-color: rgba(255,255,255,0.7);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .dot.active {
+      background-color: var(--color-accent);
+    }
+    .header-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: var(--color-white);
+      z-index: 2;
+    }
+    .header-text h1 {
       font-size: 2.5rem;
+      margin-bottom: 0.5rem;
       animation: slideDown 1s ease-out forwards;
     }
     @keyframes slideDown {
       from { transform: translateY(-20px); opacity: 0; }
       to { transform: translateY(0); opacity: 1; }
     }
-    header p {
+    .header-text p {
       font-size: 1.2rem;
       margin-top: 0.5rem;
     }
-    /* Navigation */
+    .language-menu {
+      color: var(--color-white);
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      z-index: 3;
+      background: var(--color-primary);
+      border-radius: 8px;
+      padding: 0.5rem 1rem;
+    }
+    .language-menu a {
+      color: var(--color-white);
+      margin-left: 0rem;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    .language-menu a:hover {
+      color: var(--color-accent);
+    }
+    .flag-icon {
+      width: 20px;
+      height: auto;
+      margin-left: 5px;
+      vertical-align: middle;
+    }
     nav {
-      background-color: #0a9396;
+      background-color: var(--color-secondary);
       text-align: center;
       padding: 0.75rem;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     nav a {
-      color: #fff;
+      color: var(--color-white);
       margin: 0 1rem;
       text-decoration: none;
       font-weight: bold;
@@ -79,26 +133,10 @@
       transition: color 0.3s;
     }
     nav a:hover {
-      color: #94d2bd;
+      color: var(--color-accent);
     }
-    nav a::after {
-      content: "";
-      display: block;
-      width: 0;
-      height: 2px;
-      background: #94d2bd;
-      transition: width 0.3s;
-      position: absolute;
-      left: 50%;
-      bottom: -4px;
-      transform: translateX(-50%);
-    }
-    nav a:hover::after {
-      width: 100%;
-    }
-    /* Sections */
     section {
-      background: #fff;
+      background: var(--color-white);
       margin: 2rem auto;
       max-width: 900px;
       padding: 1.5rem;
@@ -107,16 +145,11 @@
       animation: fadeIn 1.5s ease-out forwards;
     }
     section h2 {
-      color: #005f73;
+      color: var(--color-primary);
       margin-bottom: 1rem;
       font-size: 2rem;
-      border-bottom: 2px solid #0a9396;
+      border-bottom: 2px solid var(--color-secondary);
       padding-bottom: 0.5rem;
-    }
-    section h3 {
-      color: #0a9396;
-      margin: 1rem 0 0.5rem;
-      font-size: 1.5rem;
     }
     section p, section ul {
       margin-bottom: 1rem;
@@ -126,20 +159,9 @@
       list-style: disc inside;
       margin-left: 1rem;
     }
-    /* Mailto link */
-    a.mail-link {
-      color: #0a9396;
-      text-decoration: none;
-      font-weight: bold;
-      transition: color 0.3s;
-    }
-    a.mail-link:hover {
-      color: #005f73;
-    }
-    /* Footer */
     footer {
-      background: #005f73;
-      color: #fff;
+      background: var(--color-primary);
+      color: var(--color-white);
       text-align: center;
       padding: 1rem;
       margin-top: 2rem;
@@ -151,82 +173,30 @@
 </head>
 <body>
   <header class="fade-in">
-    <div class="language-menu">
-      <a href="/index.html">FR</a> | <a href="/index_en.html">EN</a>
+    <div class="slider-container">
+      <div class="language-menu">
+        <a href="/fr">FR <img src="images/french_flag.png" alt="Français" class="flag-icon"></a> |
+        <a href="/index_en.html">EN <img src="images/american_flag.png" alt="English" class="flag-icon"></a>
+      </div>
+      <div id="slider">
+        <img src="images/image1.jpg" alt="Mobile application 1">
+        <img src="images/image2.jpg" alt="Mobile application 2">
+        <img src="images/image3.jpg" alt="Mobile application 3">
+        <img src="images/image4.jpg" alt="Mobile application 4">
+        <img src="images/image5.jpg" alt="Mobile application 5">
+      </div>
+      <div class="dots">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+        <span class="dot" onclick="currentSlide(4)"></span>
+        <span class="dot" onclick="currentSlide(5)"></span>
+      </div>
+      <div class="header-text">
+        <h1>Assistance & Documentation</h1>
+        <p>Random Nutrition</p>
+      </div>
     </div>
-    <h1>Support & Documentation</h1>
-    <p>Random Nutrition</p>
   </header>
-
-  <nav class="fade-in">
-    <a href="#overview">Overview</a>
-    <a href="#features">Features</a>
-    <a href="#app-pages">App Pages</a>
-    <a href="#contact">Contact & Support</a>
-  </nav>
-
-  <section id="overview" class="fade-in">
-    <h2>Overview of Random Nutrition</h2>
-    <p>
-      Random Nutrition is a mobile application that generates balanced meals randomly while meeting predefined nutritional constraints.
-      The app produces appetizers, main courses, cheeses, and desserts, taking into account energy, protein, fat, carbohydrate, and other macronutrient needs.
-    </p>
-    <p>
-      It also offers the option to add or remove certain types of foods to personalize meals according to your preferences and requirements.
-    </p>
-  </section>
-
-  <section id="features" class="fade-in">
-    <h2>Key Features</h2>
-    <ul>
-      <li>Random meal generation that adheres to nutritional limits for each course (appetizer, main course, cheese, dessert).</li>
-      <li>Customization of nutritional limits (energy, macronutrient ratios).</li>
-      <li>Management of food quantities within predefined ranges.</li>
-      <li>Automatic verification of nutritional constraints for each generated meal.</li>
-      <li>Compliance with dietary guidelines: every meal is balanced and meets daily energy, protein, fat, and carbohydrate requirements.</li>
-    </ul>
-  </section>
-
-  <section id="app-pages" class="fade-in">
-    <h2>App Pages</h2>
-
-    <h3>Home Page</h3>
-    <p>
-      Users can view their usage statistics and discover some random foods.
-    </p>
-
-    <h3>Food Page</h3>
-    <p>
-      This page displays two lists:
-    </p>
-    <ul>
-      <li>The default food list.</li>
-      <li>The customizable food list that users can add to.</li>
-    </ul>
-    <p>
-      By clicking the <strong>+</strong> button, users are redirected to a page for creating a custom food item that includes a name, categories, nutritional values, a description, etc.
-      Each food item in the list is clickable to display a popup with detailed information.
-    </p>
-
-    <h3>Generate Meals Page</h3>
-    <p>
-      On this page, users can:
-    </p>
-    <ul>
-      <li>Enter the desired nutritional values.</li>
-      <li>Select the number of meals to generate.</li>
-      <li>Individually configure each meal by selecting desired courses and categories or foods.</li>
-      <li>Generate the meals by clicking the "Generate" button after configuration.</li>
-    </ul>
-    <p>
-      A loading screen appears with a tip, and once finished, the generated meals are displayed in detail with the option to save them individually or as a set.
-    </p>
-
-    <h3>Meals & Meal Sets Page</h3>
-    <p>
-      This page presents two lists:
-    </p>
-    <ul>
-      <li>Saved meals.</li>
-      <li>Saved meal sets.</li>
-    </ul>
+</body>
+</html>

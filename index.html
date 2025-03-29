@@ -5,6 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Assistance Random Nutrition</title>
   <style>
+    /* Déclaration des variables de couleurs */
+    :root {
+      --color-bg: #f9f9f9;
+      --color-text: #333;
+      --color-white: #fff;
+      --color-primary: #004d40;    /* Vert foncé-bleu pour fonds, entêtes, pied de page */
+      --color-secondary: #00695c;  /* Variante complémentaire pour barres et survols */
+      --color-accent: #80cbc4;     /* Couleur d’accentuation (survol, détails) */
+    }
+
     /* Menu de sélection de langue */
     .language-menu {
       position: absolute;
@@ -12,14 +22,14 @@
       right: 1rem;
     }
     .language-menu a {
-      color: #fff;
+      color: var(--color-white);
       margin-left: 1rem;
       text-decoration: none;
       font-weight: bold;
       transition: color 0.3s;
     }
     .language-menu a:hover {
-      color: #94d2bd;
+      color: var(--color-accent);
     }
     /* Polices et réinitialisation */
     * {
@@ -29,8 +39,8 @@
     }
     body {
       font-family: 'Helvetica Neue', Arial, sans-serif;
-      background: #f9f9f9;
-      color: #333;
+      background: var(--color-bg);
+      color: var(--color-text);
       line-height: 1.6;
       overflow-x: hidden;
     }
@@ -42,10 +52,44 @@
     @keyframes fadeIn {
       to { opacity: 1; }
     }
+    /* Slider d'images */
+    #slider {
+      position: relative;
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      margin: 0 auto 1rem;
+      overflow: hidden;
+    }
+    #slider img {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 400px;
+      opacity: 0;
+      animation: fade 25s infinite;
+    }
+    /* Animation pour chaque image : chaque image est visible 5s sur 25s */
+    @keyframes fade {
+      0% { opacity: 0; }
+      10% { opacity: 1; }
+      30% { opacity: 1; }
+      40% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+    /* Affecter un délai à chaque image pour les décaler */
+    #slider img:nth-child(1) { animation-delay: 0s; }
+    #slider img:nth-child(2) { animation-delay: 5s; }
+    #slider img:nth-child(3) { animation-delay: 10s; }
+    #slider img:nth-child(4) { animation-delay: 15s; }
+    #slider img:nth-child(5) { animation-delay: 20s; }
+
     /* En-tête */
     header {
-      background: linear-gradient(135deg, #0a9396, #007332);
-      color: #fff;
+      background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+      color: var(--color-white);
       padding: 2rem 1rem;
       text-align: center;
     }
@@ -64,13 +108,13 @@
     }
     /* Navigation */
     nav {
-      background-color: #0a9396;
+      background-color: var(--color-secondary);
       text-align: center;
       padding: 0.75rem;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     nav a {
-      color: #fff;
+      color: var(--color-white);
       margin: 0 1rem;
       text-decoration: none;
       font-weight: bold;
@@ -78,182 +122,14 @@
       transition: color 0.3s;
     }
     nav a:hover {
-      color: #94d2bd;
+      color: var(--color-accent);
     }
     nav a::after {
       content: "";
       display: block;
       width: 0;
       height: 2px;
-      background: #94d2bd;
+      background: var(--color-accent);
       transition: width 0.3s;
       position: absolute;
-      left: 50%;
-      bottom: -4px;
-      transform: translateX(-50%);
-    }
-    nav a:hover::after {
-      width: 100%;
-    }
-    /* Sections */
-    section {
-      background: #fff;
-      margin: 2rem auto;
-      max-width: 900px;
-      padding: 1.5rem;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      animation: fadeIn 1.5s ease-out forwards;
-    }
-    section h2 {
-      color: #005f73;
-      margin-bottom: 1rem;
-      font-size: 2rem;
-      border-bottom: 2px solid #0a9396;
-      padding-bottom: 0.5rem;
-    }
-    section h3 {
-      color: #0a9396;
-      margin: 1rem 0 0.5rem;
-      font-size: 1.5rem;
-    }
-    section p, section ul {
-      margin-bottom: 1rem;
-      font-size: 1rem;
-    }
-    ul {
-      list-style: disc inside;
-      margin-left: 1rem;
-    }
-    /* Lien mailto */
-    a.mail-link {
-      color: #0a9396;
-      text-decoration: none;
-      font-weight: bold;
-      transition: color 0.3s;
-    }
-    a.mail-link:hover {
-      color: #005f73;
-    }
-    /* Pied de page */
-    footer {
-      background: #005f73;
-      color: #fff;
-      text-align: center;
-      padding: 1rem;
-      margin-top: 2rem;
-    }
-    footer p {
-      font-size: 0.9rem;
-    }
-  </style>
-</head>
-<body>
-  <header class="fade-in">
-    <div class="language-menu">
-      <a href="/fr">FR</a> | <a href="/index_en.html">EN</a>
-    </div>
-    <h1>Assistance & Documentation</h1>
-    <p>Random Nutrition</p>
-  </header>
-
-  <nav class="fade-in">
-    <a href="#presentation">Présentation</a>
-    <a href="#fonctionnalites">Fonctionnalités</a>
-    <a href="#pages">Pages de l'application</a>
-    <a href="#contact">Contact & Support</a>
-  </nav>
-
-  <section id="presentation" class="fade-in">
-    <h2>Présentation de Random Nutrition</h2>
-    <p>
-      Random Nutrition est une application mobile qui génère des repas équilibrés de manière aléatoire tout en respectant des contraintes nutritionnelles prédéfinies. 
-      L'application produit des entrées, des plats, des fromages et des desserts en tenant compte des besoins en énergie, protéines, lipides, glucides et autres macronutriments.
-    </p>
-    <p>
-      Elle offre également la possibilité d'ajouter ou d'exclure certains types d'aliments pour personnaliser les repas selon vos préférences et besoins.
-    </p>
-  </section>
-
-  <section id="fonctionnalites" class="fade-in">
-    <h2>Fonctionnalités principales</h2>
-    <ul>
-      <li>Génération de repas aléatoires respectant des limites nutritionnelles pour chaque type de mets (entrée, plat, fromage, dessert).</li>
-      <li>Personnalisation des limites nutritionnelles (énergie, proportions de macronutriments).</li>
-      <li>Gestion des quantités des aliments avec des fourchettes prédéfinies.</li>
-      <li>Vérification automatique des contraintes nutritionnelles pour chaque repas généré.</li>
-      <li>Respect des règles diététiques : chaque repas est équilibré et répond aux besoins journaliers en énergie, protéines, lipides et glucides.</li>
-    </ul>
-  </section>
-
-  <section id="pages" class="fade-in">
-    <h2>Pages de l'application</h2>
-
-    <h3>Page d'accueil</h3>
-    <p>
-      L'utilisateur peut visualiser ses statistiques d'utilisation et découvrir quelques aliments au hasard.
-    </p>
-
-    <h3>Page Aliments</h3>
-    <p>
-      Cette page affiche deux listes :
-    </p>
-    <ul>
-      <li>La liste des aliments par défaut.</li>
-      <li>La liste des aliments personnalisables que l'utilisateur peut ajouter.</li>
-    </ul>
-    <p>
-      En cliquant sur le bouton <strong>+</strong>, l'utilisateur est redirigé vers une page de création d'aliment personnalisé comprenant le nom, les catégories, les valeurs nutritionnelles, une description, etc.
-      Chaque aliment de la liste est cliquable pour afficher un popup détaillant toutes ses informations.
-    </p>
-
-    <h3>Page Générer des repas</h3>
-    <p>
-      Sur cette page, l'utilisateur peut :
-    </p>
-    <ul>
-      <li>Saisir les valeurs nutritionnelles souhaitées.</li>
-      <li>Choisir le nombre de repas à générer.</li>
-      <li>Paramétrer individuellement chaque repas en sélectionnant les mets et les catégories ou aliments désirés.</li>
-      <li>Générer les repas en cliquant sur le bouton "Générer" après configuration.</li>
-    </ul>
-    <p>
-      Un écran de chargement s'affiche avec un conseil, et une fois terminé, les repas générés s'affichent en détails avec la possibilité de les enregistrer individuellement ou en ensemble.
-    </p>
-
-    <h3>Page Repas & Ensembles de repas</h3>
-    <p>
-      Cette page présente deux listes :
-    </p>
-    <ul>
-      <li>Les repas enregistrés.</li>
-      <li>Les ensembles de repas enregistrés.</li>
-    </ul>
-    <p>
-      Chaque élément est cliquable pour ouvrir un popup avec les détails du repas ou de l'ensemble. Seuls le nom et la couleur sont modifiables.
-    </p>
-
-    <h3>Page Options</h3>
-    <p>
-      L'utilisateur peut configurer diverses options de l'application pour personnaliser son expérience.
-    </p>
-  </section>
-
-  <section id="contact" class="fade-in">
-    <h2>Contact & Support</h2>
-    <p>
-      Pour toute question, suggestion ou problème, veuillez contacter notre équipe de support à l'adresse suivante :
-    </p>
-    <p>
-      <strong>Email :</strong> <a class="mail-link" href="mailto:support@randomnutrition.fr">support@randomnutrition.fr</a>
-    </p>
-    <p>
-      Vous pouvez également consulter cette page régulièrement pour des mises à jour, FAQ et conseils d'utilisation.
-    </p>
-  </section>
-
-  <footer class="fade-in">
-    <p>&copy; 2025 Random Nutrition - Tous droits réservés</p>
-  </footer>
-</body>
-</html>
+      left:

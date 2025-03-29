@@ -3,16 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Random Nutrition Support</title>
+  <title>Random Nutrition Assistance</title>
   <style>
+    /* Color Variables Declaration */
     :root {
       --color-bg: #f9f9f9;
       --color-text: #333;
       --color-white: #fff;
-      --color-primary: #004d40;
-      --color-secondary: #00695c;
-      --color-accent: #80cbc4;
+      --color-primary: #004d40;    /* Dark teal for backgrounds, headers, footer */
+      --color-secondary: #00695c;  /* Complementary shade for bars and hovers */
+      --color-accent: #80cbc4;     /* Accent color (hover, details) */
     }
+    /* Reset & Typography */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -25,6 +27,7 @@
       line-height: 1.6;
       overflow-x: hidden;
     }
+    /* Basic Animations */
     .fade-in {
       opacity: 0;
       animation: fadeIn 1.5s forwards;
@@ -32,15 +35,16 @@
     @keyframes fadeIn {
       to { opacity: 1; }
     }
+    /* Full-width Slider at the Top */
     .slider-container {
       position: relative;
       width: 100%;
-      height: 400px;
+      height: 400px; /* Adjust the desired height */
       overflow: hidden;
     }
     #slider {
       display: flex;
-      width: 500%;
+      width: 500%; /* 5 images => 5 x 100% */
       height: 100%;
       transition: transform 0.5s ease;
     }
@@ -50,6 +54,7 @@
       object-fit: cover;
       flex-shrink: 0;
     }
+    /* Navigation Dots */
     .dots {
       position: absolute;
       bottom: 20px;
@@ -70,6 +75,7 @@
     .dot.active {
       background-color: var(--color-accent);
     }
+    /* Overlay Text */
     .header-text {
       position: absolute;
       top: 50%;
@@ -92,19 +98,19 @@
       font-size: 1.2rem;
       margin-top: 0.5rem;
     }
+    /* Language Selection Menu */
     .language-menu {
       color: var(--color-white);
       position: absolute;
       top: 1rem;
       right: 1rem;
       z-index: 3;
-      background: var(--color-primary);
+      background: var(--color-primary); /* Uses the defined dark teal color */
       border-radius: 8px;
       padding: 0.5rem 1rem;
     }
     .language-menu a {
       color: var(--color-white);
-      margin-left: 0rem;
       text-decoration: none;
       font-weight: bold;
       transition: color 0.3s;
@@ -118,6 +124,7 @@
       margin-left: 5px;
       vertical-align: middle;
     }
+    /* Navigation Bar */
     nav {
       background-color: var(--color-secondary);
       text-align: center;
@@ -135,6 +142,22 @@
     nav a:hover {
       color: var(--color-accent);
     }
+    nav a::after {
+      content: "";
+      display: block;
+      width: 0;
+      height: 2px;
+      background: var(--color-accent);
+      transition: width 0.3s;
+      position: absolute;
+      left: 50%;
+      bottom: -4px;
+      transform: translateX(-50%);
+    }
+    nav a:hover::after {
+      width: 100%;
+    }
+    /* Sections */
     section {
       background: var(--color-white);
       margin: 2rem auto;
@@ -151,52 +174,11 @@
       border-bottom: 2px solid var(--color-secondary);
       padding-bottom: 0.5rem;
     }
+    section h3 {
+      color: var(--color-secondary);
+      margin: 1rem 0 0.5rem;
+      font-size: 1.5rem;
+    }
     section p, section ul {
       margin-bottom: 1rem;
-      font-size: 1rem;
-    }
-    ul {
-      list-style: disc inside;
-      margin-left: 1rem;
-    }
-    footer {
-      background: var(--color-primary);
-      color: var(--color-white);
-      text-align: center;
-      padding: 1rem;
-      margin-top: 2rem;
-    }
-    footer p {
-      font-size: 0.9rem;
-    }
-  </style>
-</head>
-<body>
-  <header class="fade-in">
-    <div class="slider-container">
-      <div class="language-menu">
-        <a href="/fr">FR <img src="images/french_flag.png" alt="Français" class="flag-icon"></a> |
-        <a href="/index_en.html">EN <img src="images/american_flag.png" alt="English" class="flag-icon"></a>
-      </div>
-      <div id="slider">
-        <img src="images/image1.jpg" alt="Mobile application 1">
-        <img src="images/image2.jpg" alt="Mobile application 2">
-        <img src="images/image3.jpg" alt="Mobile application 3">
-        <img src="images/image4.jpg" alt="Mobile application 4">
-        <img src="images/image5.jpg" alt="Mobile application 5">
-      </div>
-      <div class="dots">
-        <span class="dot" onclick="currentSlide(1)"></span>
-        <span class="dot" onclick="currentSlide(2)"></span>
-        <span class="dot" onclick="currentSlide(3)"></span>
-        <span class="dot" onclick="currentSlide(4)"></span>
-        <span class="dot" onclick="currentSlide(5)"></span>
-      </div>
-      <div class="header-text">
-        <h1>Assistance & Documentation</h1>
-        <p>Random Nutrition</p>
-      </div>
-    </div>
-  </header>
-</body>
-</html>
+      font

@@ -188,6 +188,34 @@
       list-style: disc inside;
       margin-left: 1rem;
     }
+    /* Apparition lors du scroll */
+    .fade-in.slide-up {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+    .fade-in.slide-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Bouton de téléchargement */
+    .download-btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background-color: var(--color-secondary);
+      color: white;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin-top: 1rem;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    .download-btn:hover {
+      background-color: var(--color-accent);
+      transform: scale(1.05);
+    }
     /* Lien mailto */
     a.mail-link {
       color: var(--color-secondary);
@@ -211,6 +239,52 @@
     }
   </style>
 </head>
+
+  <script>
+  // Détection de l'OS mobile
+  function detectOS() {
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+    if (/android/i.test(userAgent)) {
+      return "android";
+    }
+    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+      return "ios";
+    }
+    return "other";
+  }
+
+  // Affiche le bon lien selon l'OS
+  document.addEventListener("DOMContentLoaded", () => {
+    const os = detectOS();
+    const section = document.getElementById("downloadApp");
+    const button = document.getElementById("downloadButton");
+
+    if (os === "android") {
+      section.style.display = "block";
+      button.href = "https://play.google.com/store/apps/details?id=com.randomnutrition";
+    } else if (os === "ios") {
+      section.style.display = "block";
+      button.href = "https://apps.apple.com/app/random-nutrition/id123456789"; // Remplace par l'ID réel
+    }
+  });
+
+  // Animation lors du scroll
+  const animatedSections = document.querySelectorAll('.fade-in.slide-up');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, {
+    threshold: 0.1
+  });
+
+  animatedSections.forEach(section => {
+    observer.observe(section);
+  });
+</script>
 <body>
   <header class="fade-in">
     <div class="slider-container">
@@ -337,6 +411,12 @@
     <p>
       Vous pouvez également consulter cette page régulièrement pour des mises à jour, FAQ et conseils d'utilisation.
     </p>
+  </section>
+
+  <section id="downloadApp" class="fade-in slide-up" style="display: none;">
+    <h2>Télécharger l'application</h2>
+    <p>Accédez directement à l'application sur votre store préféré :</p>
+    <a id="downloadButton" href="#" target="_blank" class="download-btn">Télécharger</a>
   </section>
 
   <footer class="fade-in">

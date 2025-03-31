@@ -1,1 +1,460 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Nutrition Support</title>
+  <style>
+    /* Déclaration des variables de couleurs */
+    :root {
+      --color-bg: #f9f9f9;
+      --color-text: #333;
+      --color-white: #fff;
+      --color-primary: #004d40;    /* Vert foncé-bleu pour fonds, entêtes, pied de page */
+      --color-secondary: #00695c;  /* Variante complémentaire pour barres et survols */
+      --color-accent: #80cbc4;      /* Couleur d’accentuation (survol, détails) */
+    }
+    /* Polices et réinitialisation */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      overflow-x: hidden; /* Empêche le débordement horizontal */
+    }
+    /* Animations de base */
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 1.5s ease-out forwards;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
 
+    /* Animation au défilement */
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(30px); /* Commence légèrement plus bas */
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .animate-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Slider complet en haut de la page */
+    .slider-container {
+      position: relative;
+      width: 100%;
+      height: 400px; /* Ajustez la hauteur souhaitée */
+      overflow: hidden;
+      background-color: var(--color-primary); /* Fond pendant le chargement */
+    }
+    #slider {
+      display: flex;
+      width: 500%; /* 5 images => 5 x 100% */
+      height: 100%;
+      transition: transform 0.5s ease;
+    }
+    #slider img {
+      width: 20%; /* Chaque image prend 1/5 de la largeur du conteneur #slider */
+      height: 100%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    /* Cercles de navigation */
+    .dots {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      z-index: 2;
+    }
+    .dot {
+      height: 12px;
+      width: 12px;
+      margin: 0 5px;
+      background-color: rgba(255,255,255,0.7);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .dot.active {
+      background-color: var(--color-accent);
+    }
+    /* Texte en superposition */
+    .header-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: var(--color-white);
+      z-index: 2;
+      opacity: 0; /* Commence caché pour l'animation */
+      animation: slideDown 1s 0.5s ease-out forwards; /* Délai ajouté */
+    }
+    .header-text h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5); /* Ombre pour lisibilité */
+    }
+    @keyframes slideDown {
+      from { transform: translate(-50%, -70%); opacity: 0; } /* Ajustement de la translation */
+      to { transform: translate(-50%, -50%); opacity: 1; }
+    }
+    .header-text p {
+      font-size: 1.2rem;
+      margin-top: 0.5rem;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5); /* Ombre pour lisibilité */
+    }
+    /* Menu de sélection de langue */
+    .language-menu {
+      color: var(--color-white);
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      z-index: 3;
+      background: rgba(0, 77, 64, 0.8); /* Fond légèrement transparent */
+      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    .language-menu a {
+      color: var(--color-white);
+      margin-left: 0rem;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    .language-menu a:hover {
+      color: var(--color-accent);
+    }
+    .flag-icon {
+      width: 20px;
+      height: auto;
+      margin-left: 5px;
+      vertical-align: middle;
+    }
+    /* Navigation */
+    nav {
+      background-color: var(--color-secondary);
+      text-align: center;
+      padding: 0.75rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      position: sticky; /* Barre de navigation collante */
+      top: 0;
+      z-index: 10; /* Assure qu'elle reste au-dessus */
+    }
+    nav a {
+      color: var(--color-white);
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: bold;
+      position: relative;
+      transition: color 0.3s;
+      padding-bottom: 5px; /* Espace pour la ligne */
+    }
+    nav a:hover {
+      color: var(--color-accent);
+    }
+    nav a::after {
+      content: "";
+      display: block;
+      width: 0;
+      height: 2px;
+      background: var(--color-accent);
+      transition: width 0.4s ease; /* Transition plus douce */
+      position: absolute;
+      left: 0; /* Commence à gauche */
+      bottom: 0; /* Positionne en bas */
+      /* transform: translateX(-50%); -- Plus nécessaire si left: 0 et width: 100% */
+    }
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Style spécifique pour le lien de téléchargement */
+    #download-app-link {
+        background-color: var(--color-accent);
+        color: var(--color-primary);
+        padding: 5px 10px;
+        border-radius: 5px;
+        margin-left: 1rem;
+        font-weight: bold;
+        transition: background-color 0.3s, color 0.3s;
+    }
+    #download-app-link:hover {
+        background-color: var(--color-primary);
+        color: var(--color-white);
+        /* On retire l'effet ::after pour ce lien spécifique si désiré */
+        /* text-decoration: none; */
+    }
+     #download-app-link::after {
+        display: none; /* Cache l'effet de soulignement pour ce bouton */
+    }
+
+
+    /* Sections */
+    section {
+      background: var(--color-white);
+      margin: 2rem auto;
+      max-width: 900px;
+      padding: 2rem; /* Augmentation du padding */
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Ombre plus prononcée */
+      /* L'animation est maintenant gérée par .animate-on-scroll */
+    }
+    section h2 {
+      color: var(--color-primary);
+      margin-bottom: 1.5rem; /* Espace augmenté */
+      font-size: 2rem;
+      border-bottom: 3px solid var(--color-secondary); /* Ligne plus épaisse */
+      padding-bottom: 0.8rem; /* Espace sous la ligne augmenté */
+    }
+    section h3 {
+      color: var(--color-secondary);
+      margin: 1.5rem 0 0.8rem; /* Espaces ajustés */
+      font-size: 1.5rem;
+    }
+    section p, section ul {
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      color: var(--color-text); /* Assure la couleur du texte */
+    }
+    ul {
+      list-style: disc; /* Style de puce standard */
+      padding-left: 2rem; /* Indentation standard pour les listes */
+      /* margin-left: 1rem; -- Remplacé par padding-left */
+    }
+    li {
+        margin-bottom: 0.5rem; /* Espace entre les éléments de liste */
+    }
+    /* Lien mailto */
+    a.mail-link {
+      color: var(--color-secondary);
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+      border-bottom: 1px dotted var(--color-secondary); /* Soulignement discret */
+    }
+    a.mail-link:hover {
+      color: var(--color-primary);
+      border-bottom-color: var(--color-primary);
+    }
+    /* Pied de page */
+    footer {
+      background: var(--color-primary);
+      color: var(--color-white);
+      text-align: center;
+      padding: 1.5rem; /* Padding augmenté */
+      margin-top: 3rem; /* Marge augmentée */
+    }
+    footer p {
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="slider-container">
+      <div class="language-menu">
+        <a href="/fr/index.html">FR <img src="../images/french_flag.png" alt="Français" class="flag-icon"></a> |
+        <a href="/en/index_en.html">EN <img src="../images/american_flag.png" alt="English" class="flag-icon"></a>
+      </div>
+
+      <div id="slider">
+        <img src="../images/image1.jpg" alt="Application mobile 1">
+        <img src="../images/image2.jpg" alt="Application mobile 2">
+        <img src="../images/image3.jpg" alt="Application mobile 3">
+        <img src="../images/image4.jpg" alt="Application mobile 4">
+        <img src="../images/image5.jpg" alt="Application mobile 5">
+      </div>
+      <div class="dots">
+        </div>
+      <div class="header-text">
+        <h1>Assistance & Documentation</h1>
+        <p>Random Nutrition</p>
+      </div>
+    </div>
+  </header>
+
+  <nav class="fade-in">
+    <a href="/en/index.html#presentation">Overview</a>
+    <a href="/en/index.html#fonctionnalites">Features</a>
+    <a href="/en/index.html#pages">App pages</a>
+    <a href="/en/derniere_mise_a_jour">Last update</a>
+    <a href="/en/politique_de_confidentialite">Privacy policy</a>
+    <a href="/en/index.html#contact">Contact & Support</a>
+  </nav>
+
+  <section id="presentation" class="animate-on-scroll">
+    <h2>Last update of Random Nutrition</h2>
+    <p>
+      No update has been published.
+    </p>
+  </section>
+
+   <footer class="fade-in">
+    <p>&copy; 2025 Random Nutrition - All right reserved</p>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+
+      // --- Logique du Carrousel / Slider ---
+      let slideIndex = 0;
+      const slider = document.getElementById("slider");
+      const slides = document.querySelectorAll("#slider img");
+      const dotsContainer = document.querySelector(".dots");
+      let slideInterval;
+      const slideDuration = 5000; // 5 secondes
+
+      function createDots() {
+        dotsContainer.innerHTML = ''; // Vider les anciens points
+         if (!slides || slides.length <= 1) {
+            dotsContainer.style.display = 'none'; // Cache les points si 0 ou 1 slide
+            return;
+         }
+         dotsContainer.style.display = 'flex'; // Affiche les points si > 1 slide
+        slides.forEach((_, i) => {
+          const dot = document.createElement("span");
+          dot.classList.add("dot");
+          dot.setAttribute("onclick", `currentSlide(${i})`); // Attention: n-1 n'est plus nécessaire
+          dotsContainer.appendChild(dot);
+        });
+      }
+
+      function updateDots() {
+          const dots = dotsContainer.querySelectorAll(".dot");
+           if (!dots || dots.length === 0) return;
+        dots.forEach((dot, i) => {
+          dot.classList.toggle("active", i === slideIndex);
+        });
+      }
+
+      function showSlide(index) {
+          if (!slides || slides.length === 0) return; // Ne rien faire s'il n'y a pas de slides
+
+        if (index >= slides.length) {
+          slideIndex = 0;
+        } else if (index < 0) {
+          slideIndex = slides.length - 1;
+        } else {
+          slideIndex = index;
+        }
+         // Le calcul de la transformation change car chaque image fait 20% de la largeur de #slider
+         const slideWidthPercentage = 100 / slides.length;
+         slider.style.transform = `translateX(-${slideIndex * slideWidthPercentage}%)`;
+        updateDots();
+      }
+
+      function nextSlide() {
+        showSlide(slideIndex + 1);
+      }
+
+      function startSlider() {
+         if (!slides || slides.length <= 1) return; // Ne pas démarrer si 0 ou 1 slide
+        clearInterval(slideInterval); // Arrêter l'intervalle précédent
+        slideInterval = setInterval(nextSlide, slideDuration);
+      }
+
+       // Fonction pour changer de slide manuellement (appelée par les points)
+       // Doit être globale ou attachée à window si appelée via `onclick` HTML
+       window.currentSlide = function(n) {
+           if (!slides || slides.length <= 1) return;
+          clearInterval(slideInterval);
+          showSlide(n); // n est directement l'index (0-based)
+          startSlider(); // Redémarrer le timer après clic manuel
+       }
+
+      // Initialisation du slider
+      createDots();
+      showSlide(slideIndex); // Afficher la première slide
+      startSlider(); // Démarrer le défilement automatique
+
+      // --- Logique d'Animation au Défilement ---
+      const scrollElements = document.querySelectorAll(".animate-on-scroll");
+
+      const elementInView = (el, dividend = 1) => {
+        const elementTop = el.getBoundingClientRect().top;
+        // Déclenche un peu avant que l'élément soit complètement visible
+        return (
+          elementTop <= (window.innerHeight || document.documentElement.clientHeight) / dividend
+        );
+      };
+
+      const displayScrollElement = (element) => {
+        element.classList.add("is-visible");
+      };
+
+      const hideScrollElement = (element) => {
+        element.classList.remove("is-visible"); // Optionnel: pour ré-animer si on remonte
+      };
+
+      const handleScrollAnimation = () => {
+        scrollElements.forEach((el) => {
+          if (elementInView(el, 1.15)) { // Déclenche quand 15% du bas de l'élément est visible
+            displayScrollElement(el);
+          }
+           // else { // Optionnel: décommenter pour cacher quand ça sort de la vue par le haut
+           //   hideScrollElement(el);
+           // }
+        });
+      }
+
+      // Écouteur d'événement pour le défilement
+      window.addEventListener("scroll", handleScrollAnimation);
+      // Appel initial pour vérifier les éléments déjà visibles au chargement
+      handleScrollAnimation();
+
+
+      // --- Logique du Lien de Téléchargement Conditionnel ---
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+      const navElement = document.querySelector("nav");
+      let downloadLink = null;
+
+      // !! IMPORTANT !! Remplacez par vos vrais liens App Store et Play Store
+      const appStoreUrl = "https://apps.apple.com/VOTRE_LIEN_APP_STORE";
+      const playStoreUrl = "https://play.google.com/store/apps/details?id=VOTRE_ID_APPLICATION";
+
+      // Détection iOS (iPhone, iPad, iPod)
+      if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+        downloadLink = document.createElement("a");
+        downloadLink.href = appStoreUrl;
+        downloadLink.textContent = "Télécharger sur l'App Store";
+        downloadLink.id = "download-app-link"; // ID pour un style spécifique si besoin
+        downloadLink.target = "_blank"; // Ouvre dans un nouvel onglet/store
+        downloadLink.rel = "noopener noreferrer";
+      }
+      // Détection Android
+      else if (/android/i.test(userAgent)) {
+        downloadLink = document.createElement("a");
+        downloadLink.href = playStoreUrl;
+        downloadLink.textContent = "Disponible sur Google Play";
+        downloadLink.id = "download-app-link"; // ID pour un style spécifique si besoin
+        downloadLink.target = "_blank"; // Ouvre dans un nouvel onglet/store
+        downloadLink.rel = "noopener noreferrer";
+      }
+
+      // Ajouter le lien à la navigation s'il a été créé
+      if (downloadLink && navElement) {
+        // Ajouter un style spécifique au lien de téléchargement si besoin
+        // downloadLink.style.fontWeight = 'bold';
+        // downloadLink.style.marginLeft = '15px';
+        // etc.
+        // Ou utiliser l'ID #download-app-link dans le CSS
+
+        navElement.appendChild(downloadLink);
+      }
+
+    }); // Fin de DOMContentLoaded
+  </script>
+  </body>
+</html>

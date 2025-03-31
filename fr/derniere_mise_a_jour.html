@@ -1,1 +1,140 @@
-.
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Politique de Confidentialité - Random Nutrition</title>
+  <style>
+    /* Déclaration des variables de couleurs */
+    :root {
+      --color-bg: #f9f9f9;
+      --color-text: #333;
+      --color-white: #fff;
+      --color-primary: #004d40;
+      --color-secondary: #00695c;
+      --color-accent: #80cbc4;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      padding: 1rem;
+    }
+    header, footer {
+      text-align: center;
+      padding: 1rem;
+      background: var(--color-primary);
+      color: var(--color-white);
+    }
+    nav {
+      background-color: var(--color-secondary);
+      text-align: center;
+      padding: 0.75rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    nav a {
+      color: var(--color-white);
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+      padding-bottom: 5px;
+    }
+    nav a:hover {
+      color: var(--color-accent);
+    }
+    nav a::after {
+      content: "";
+      display: block;
+      width: 0;
+      height: 2px;
+      background: var(--color-accent);
+      transition: width 0.4s ease;
+      position: relative;
+      left: 0;
+      bottom: 0;
+    }
+    nav a:hover::after {
+      width: 100%;
+    }
+    section {
+      background: var(--color-white);
+      margin: 2rem auto;
+      max-width: 900px;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    section h2 {
+      color: var(--color-primary);
+      margin-bottom: 1.5rem;
+      font-size: 2rem;
+      border-bottom: 3px solid var(--color-secondary);
+      padding-bottom: 0.8rem;
+    }
+    section p {
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      text-align: justify;
+    }
+    footer p {
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="slider-container">
+      <div class="language-menu">
+        <a href="/fr/index.html">FR <img src="images/french_flag.png" alt="Français" class="flag-icon"></a> |
+        <a href="/en/index_en.html">EN <img src="images/american_flag.png" alt="English" class="flag-icon"></a>
+      </div>
+
+      <div id="slider">
+        <img src="images/image1.jpg" alt="Application mobile 1">
+        <img src="images/image2.jpg" alt="Application mobile 2">
+        <img src="images/image3.jpg" alt="Application mobile 3">
+        <img src="images/image4.jpg" alt="Application mobile 4">
+        <img src="images/image5.jpg" alt="Application mobile 5">
+      </div>
+      <div class="dots">
+        </div>
+      <div class="header-text">
+        <h1>Assistance & Documentation</h1>
+        <p>Random Nutrition</p>
+      </div>
+    </div>
+  </header>
+
+  <nav class="fade-in">
+    <a href="/fr/index.html">Accueil</a>
+    <a href="/fr/derniere_mise_a_jour">Dernière mise à jour</a>
+  </nav>
+
+  <section>
+    <h2>Dernière mise à jour de Random Nutrition</h2>
+    <p><strong>Date : </strong>-</p>
+    
+    <h3>Aucune information</h3>
+    <p>
+      Aucune dernière mise à jour n'a été publiée.
+    </p>
+    
+    
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Random Nutrition - Tous droits réservés</p>
+  </footer>
+</body>
+</html>

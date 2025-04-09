@@ -107,6 +107,12 @@ document.addEventListener("DOMContentLoaded", function() {
     // Appel initial pour vérifier les éléments déjà visibles au chargement
     handleScrollAnimation();
 
+    // Mise à jour de l'année dans le footer
+    const yearElement = document.getElementById("current-year");
+    if (yearElement) {
+      yearElement.textContent = new Date().getFullYear();
+    }
+
 
     // --- Logique du Lien de Téléchargement Conditionnel ---
     const userAgent = navigator.userAgent || navigator.vendor || window.opera;
